@@ -8,11 +8,21 @@ export default class BaseLayout extends Component {
           <nav className='navbar navbar-default'>
             <div className='container-fluid'>
               <div className='navbar-header'>
-                <a className="navbar-brand" href=""><h1>Wisdom Pet Medicine</h1></a>
+                <a className='navbar-brand' href=''><h1>Craig's Pet Store</h1></a>
               </div>
             </div>
           </nav>
         </header>
+
+        <div className='main'>
+          <div className='page' id='petratings'>
+            <div className='container'>
+              <div className='row'>
+                <div className='col-sm-12' />
+              </div>
+            </div>
+          </div>
+        </div>
 
         {this.props.children}
 
