@@ -15,6 +15,7 @@ export default class AddApt extends Component {
     }
     e.preventDefault()
     this.props.addApt(tempItem)
+    document.getElementById('appointment-form').reset()
   }
 
   render () {
@@ -27,7 +28,7 @@ export default class AddApt extends Component {
         <div className='panel-heading apt-addheading' onClick={this.toggleAptDisplay}>
           <span className='glyphicon glyphicon-plus' /> Add Appointment</div>
         <div className='panel-body' style={displayAptBody}>
-          <form className='add-appointment form-horizontal' onSubmit={this.handleAdd}>
+          <form className='add-appointment form-horizontal' onSubmit={this.handleAdd} id='appointment-form'>
             <div className='form-group'>
               <label className='col-sm-2 control-label' htmlFor='petName'>Pet Name</label>
               <div className='col-sm-10'>

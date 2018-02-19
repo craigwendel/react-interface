@@ -5,6 +5,7 @@ import data from '../data/data.js'
 
 import AptList from './AptList'
 import AddApt from './AddApt'
+import SearchApt from './SearchApt'
 
 let _ = require('lodash')
 
@@ -14,7 +15,9 @@ export default class App extends Component {
 
     this.state = {
       myAppointments: data,
-      aptBodyVisible: false
+      aptBodyVisible: false,
+      orderBy: 'petName',
+      orderDir: 'asc'
     }
   }
 
@@ -34,8 +37,22 @@ export default class App extends Component {
     this.setState({myAppointments: tempApts})
   }
 
+  reOrder = (orderBy, orderDir) => {
+    this.setState({
+      orderBy: orderBy,
+      orderDir: orderDir
+    })
+  }
+
   render () {
     let filteredApts = this.state.myAppointments
+    let orderBy = this.state.orderBy
+    let orderDir = this.state.orderDir
+
+    filteredApts = _.orderBy(filteredApts, function (item) {
+      return item[orderBy].toLowerCase()
+    }, orderDir)
+
     filteredApts = filteredApts.map((item, i) => {
       return (
         <AptList key={i} item={item} whichItem={item} onDelete={this.deleteMessage} />
@@ -45,6 +62,7 @@ export default class App extends Component {
     return (
       <div className='interface'>
         <AddApt bodyVisible={this.state.aptBodyVisible} handleToggle={this.toggleAddDisplay} addApt={this.addItem} />
+        <SearchApt orderBy={this.state.orderBy} orderDir={this.state.orderDir} onReOrder={this.reOrder} />
         <ul className='item-list media-list'>{filteredApts}</ul>
       </div>
     )
