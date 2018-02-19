@@ -28,6 +28,12 @@ export default class App extends Component {
     this.setState({aptBodyVisible: !this.state.aptBodyVisible})
   }
 
+  addItem = (tempItem) => {
+    let tempApts = this.state.myAppointments
+    tempApts.push(tempItem)
+    this.setState({myAppointments: tempApts})
+  }
+
   render () {
     let filteredApts = this.state.myAppointments
     filteredApts = filteredApts.map((item, i) => {
@@ -38,7 +44,7 @@ export default class App extends Component {
 
     return (
       <div className='interface'>
-        <AddApt bodyVisible={this.state.aptBodyVisible} handleToggle={this.toggleAddDisplay} />
+        <AddApt bodyVisible={this.state.aptBodyVisible} handleToggle={this.toggleAddDisplay} addApt={this.addItem} />
         <ul className='item-list media-list'>{filteredApts}</ul>
       </div>
     )
