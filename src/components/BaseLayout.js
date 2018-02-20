@@ -36,8 +36,8 @@ export default class BaseLayout extends Component {
                 <nav className='navbar navbar-default'>
                   <div className='container-fluid'>
                     <ul className='nav navbar-nav navbar-right'>
-                      <li><a href='#'>Terms of use</a></li>
-                      <li><a href='#'>Privacy policy</a></li>
+                      <li><a href=''>Terms of use</a></li>
+                      <li><a href=''>Privacy policy</a></li>
                     </ul>
                   </div>
                 </nav>

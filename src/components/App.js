@@ -17,7 +17,8 @@ export default class App extends Component {
       myAppointments: data,
       aptBodyVisible: false,
       orderBy: 'petName',
-      orderDir: 'asc'
+      orderDir: 'asc',
+      queryText: ''
     }
   }
 
@@ -43,11 +44,28 @@ export default class App extends Component {
       orderDir: orderDir
     })
   }
+  searchApts = (q) => {
+    this.setState({queryText: q})
+  }
 
   render () {
-    let filteredApts = this.state.myAppointments
+    let filteredApts = []
     let orderBy = this.state.orderBy
     let orderDir = this.state.orderDir
+    let queryText = this.state.queryText
+    let myAppointments = this.state.myAppointments
+
+    myAppointments.forEach(function (item) {
+      if (
+        (item.petName.toLowerCase().indexOf(queryText) !== -1) ||
+        (item.ownerName.toLowerCase().indexOf(queryText) !== -1) ||
+        (item.aptDate.toLowerCase().indexOf(queryText) !== -1) ||
+        (item.aptNotes.toLowerCase().indexOf(queryText) !== -1)
+      )
+       {
+        filteredApts.push(item)
+      }
+    })
 
     filteredApts = _.orderBy(filteredApts, function (item) {
       return item[orderBy].toLowerCase()
@@ -62,7 +80,7 @@ export default class App extends Component {
     return (
       <div className='interface'>
         <AddApt bodyVisible={this.state.aptBodyVisible} handleToggle={this.toggleAddDisplay} addApt={this.addItem} />
-        <SearchApt orderBy={this.state.orderBy} orderDir={this.state.orderDir} onReOrder={this.reOrder} />
+        <SearchApt orderBy={this.state.orderBy} orderDir={this.state.orderDir} onReOrder={this.reOrder} onSearch={this.searchApts} />
         <ul className='item-list media-list'>{filteredApts}</ul>
       </div>
     )
